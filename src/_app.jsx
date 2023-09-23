@@ -3,6 +3,7 @@ import axios from 'axios';
 import './App.css';
 
 
+
 export function App() {
         const [loading, setLoading] = useState(true);
         const [pokemonList, setPokemonList] = useState([]);
@@ -54,27 +55,22 @@ export function App() {
                                                 
                                         </div>
 
+                                        <div className='stats'>
                                         <div>
-                                        <h2 className='weight'>Weight:  {pokemonList[selectedPokemon].weight}</h2>
-                                        <h2 className='height'>Height:  {pokemonList[selectedPokemon].height}</h2>
+                                                <h5>Weight:  {pokemonList[selectedPokemon].weight}</h5>
+                                                <h5>Height:  {pokemonList[selectedPokemon].height}</h5>
                                         </div>
 
-                                        <div className='some'>
-                                                <p><b>Stat1:</b> {pokemonList[selectedPokemon].stats[0].stat.name}</p>
-                                                <p><b>Stat2:</b> {pokemonList[selectedPokemon].stats[1].stat.name}</p>
-                                                <p><b>Stat3:</b> {pokemonList[selectedPokemon].stats[2].stat.name}</p>
-                                                <p><b>Stat4:</b> {pokemonList[selectedPokemon].stats[3].stat.name}</p>
-                                                <p><b>Stat5:</b> {pokemonList[selectedPokemon].stats[4].stat.name}</p>
-                                                <p><b>Stat6:</b> {pokemonList[selectedPokemon].stats[5].stat.name}</p>
+                                        <div >
+                                                {pokemonList[selectedPokemon].stats.map((stats, index)=>{
+                                                        return <h5>Stat{index+1}: {stats.stat.name}</h5>
+                                                })}
                                         </div>
                                         <div className='some2'>
-                                                <p><b>Bs1:</b> {pokemonList[selectedPokemon].stats[0].base_stat}</p>
-                                                <p><b>Bs2:</b> {pokemonList[selectedPokemon].stats[1].base_stat}</p>
-                                                <p><b>Bs3:</b> {pokemonList[selectedPokemon].stats[2].base_stat}</p>
-                                                <p><b>Bs4:</b> {pokemonList[selectedPokemon].stats[3].base_stat}</p>
-                                                <p><b>Bs5:</b> {pokemonList[selectedPokemon].stats[4].base_stat}</p>
-                                                <p><b>Bs6:</b> {pokemonList[selectedPokemon].stats[5].base_stat}</p>
-                                                <p><b>Bs7:</b> {pokemonList[selectedPokemon].stats[2].base_stat}</p>
+                                                {pokemonList[selectedPokemon].stats.map((stats, index)=>{
+                                                                        return <h5>Bs{index + 1}: {stats.base_stat}</h5>
+                                                                })}
+                                        </div>
                                         </div>
                                         
                                         <div id="close" onClick={()=>{

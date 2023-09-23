@@ -208,3 +208,7 @@ h2 {
   font-size:small;
 
 }
+
+.stats{
+  display: flex;
+}
