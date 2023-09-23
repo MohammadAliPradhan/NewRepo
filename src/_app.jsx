@@ -6,13 +6,13 @@ import './App.css';
 
 export function App() {
         const [loading, setLoading] = useState(true);
-        const [pokemonList, setPokemonList] = useState([]);
-        const [nextPokenmonUrl, setnextPokenmonUrl] = useState(null);
-        const [showModal, setShowModal] = useState(false);
-        const [selectedPokemon, setselectedPokemon] = useState(null);
+        const [pokemonList, setPokemonList] = useState([]);  //This is the list of the pokemon
+        const [nextPokenmonUrl, setnextPokenmonUrl] = useState(null); //This is the next pokemon list where new pokemon will show up
+        const [showModal, setShowModal] = useState(false);   //This will help when we will check for more details by clicking show more 
+        const [selectedPokemon, setselectedPokemon] = useState(null); //This will help in which pokemon is selected and what we will do with that pokemon like using its image etc
 
         async function getAllPokemons(url = "https://content.newtonschool.co/v1/pr/64ccef982071a9ad01d36ff6/pokemonspages1", override = false) {
-                const res = await axios.get(url);
+                const res = await axios.get(url);      // I used axios instead of asyn and await this works the same only thing is to install dependency
                 const pokemonData = res.data[0].results;
                 setnextPokenmonUrl(res.data[0].next);
                 const pokemonListFromApi = [];
@@ -21,14 +21,15 @@ export function App() {
                         const data = res.data[0];
                         pokemonListFromApi.push(data);
                 }
+                //Till here I was fetching the api 
                 console.log(pokemonListFromApi);
                 if (!override) {
                         setPokemonList(pokemonListFromApi)
-                }
+                }// This one just findds out whether its overiding or not 
                 else {
                         setPokemonList((oldList) => {
                                 return oldList.concat(pokemonListFromApi);
-                        })
+                        })  // if Its overRiding then it would make sure that the old state is not getting erased like it would make sure that other images are in the same continuity, and not make it overiding the old state
                 }
                 setLoading(false);
         }
@@ -38,7 +39,7 @@ export function App() {
         }
 
         useEffect(() => {
-                getAllPokemons();
+                getAllPokemons();     //This make sures thats  everything shows up
         }, [])
 
         return loading ? <div>loading</div> : <div id="parent">
@@ -53,12 +54,12 @@ export function App() {
                                 <h2>Kingdom</h2>
                         </div>
                 </div>
-
-                <div className="modal" id={!showModal && "inactive"}>
-                        <div className="content">
+                        {/* {here fetching all the name of the modal as well as there hp and other things} */}
+                <div className="modal" id={showModal===false && "inactive"}>  
+                        <div className="content">     
                                 {selectedPokemon !== null && selectedPokemon >= 0 && <div className={`details ${pokemonList[selectedPokemon].type}`}>
-                                        <div id="pokemon-preview">
-                                                <img src={pokemonList[selectedPokemon].image} alt={pokemonList[selectedPokemon].name} />
+                                        <div id="pokemon-preview"> 
+                                                <img src={pokemonList[selectedPokemon].image} alt={pokemonList[selectedPokemon].name} />    
                                                 <div>{pokemonList[selectedPokemon].name}</div>
 
                                         </div>
@@ -66,7 +67,7 @@ export function App() {
                                         <div className='stats'>
                                                 <div>
                                                         <h5>Weight:  {pokemonList[selectedPokemon].weight}</h5>
-                                                        <h5>Height:  {pokemonList[selectedPokemon].height}</h5>
+                                                        <h5>Height:  {pokemonList[selectedPokemon].height}</h5> 
                                                 </div>
 
                                                 <div >
@@ -82,13 +83,14 @@ export function App() {
                                         </div>
 
                                         <div id="close" onClick={() => {
-                                                setShowModal(false);
-                                                setselectedPokemon(null);
+                                                setShowModal(false);   // It will update the showModal
+                                                setselectedPokemon(null); //it would make the selected pokemon list as null so new list would be able to cop up
                                         }}>x</div>
                                 </div>
                                 }
                         </div>
                 </div>
+
 
 
                 <div className="app-container" id="no-scrool">
