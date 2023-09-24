@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import PokemonImage from "./images/bulbasur.png"
 
 
 
@@ -59,7 +60,7 @@ export function App() {
                         <div className="content">     
                                 {selectedPokemon !== null && selectedPokemon >= 0 && <div className={`details ${pokemonList[selectedPokemon].type}`}>
                                         <div id="pokemon-preview"> 
-                                                <img src={pokemonList[selectedPokemon].image} alt={pokemonList[selectedPokemon].name} />    
+                                                <img src={PokemonImage} alt={pokemonList[selectedPokemon].name} />    
                                                 <div>{pokemonList[selectedPokemon].name}</div>
 
                                         </div>
@@ -98,7 +99,7 @@ export function App() {
                                 {pokemonList.map((pokemon, index) => {
                                         return <div className={`card ${pokemon.type}`}>
                                                 <div className="number">{`#${pokemon.id}`}</div>
-                                                <img src={pokemon.image} alt={pokemon.name} />
+                                                <img src={PokemonImage} alt={pokemon.name} />
                                                 <div className="details">
                                                         <h3>{pokemon.name}</h3>
                                                         <small>Type: {pokemon.type}</small>
